@@ -230,8 +230,7 @@ class DataLoaderHelper<K, V> {
                 .whenComplete((result, throwable) -> instrCtx.onCompleted(dispatchResult, throwable));
         return dispatchResult;
     }
-
-    private CompletableFuture<List<V>> sliceIntoBatchesOfBatches(List<K> keys, List<CompletableFuture<V>> queuedFutures, List<Object> callContexts, int maxBatchSize) {
+private CompletableFuture<List<V>> sliceIntoBatchesOfBatches(List<K> keys, List<CompletableFuture<V>> queuedFutures, List<Object> callContexts, int maxBatchSize) {
         // the number of keys is > than what the batch loader function can accept
         // so make multiple calls to the loader
         int len = keys.size();
@@ -447,8 +446,7 @@ class DataLoaderHelper<K, V> {
                 .context(context).keyContexts(keys, keyContexts).build();
 
         DataLoaderInstrumentationContext<List<?>> instrCtx = ctxOrNoopCtx(instrumentation().beginBatchLoader(dataLoader, keys, environment));
-
-        CompletableFuture<List<V>> batchLoad;
+CompletableFuture<List<V>> batchLoad;
         try {
             if (isMapLoader()) {
                 batchLoad = invokeMapBatchLoader(keys, environment);
