@@ -14,7 +14,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
@@ -36,7 +36,7 @@ def getDevelopmentVersion() {
 def releaseVersion = System.env.RELEASE_VERSION
 version = releaseVersion ? releaseVersion : getDevelopmentVersion()
 group = 'com.graphql-java'
-description = 'A pure Java 11 port of Facebook Dataloader'
+description = 'A pure Java 17 port of Facebook Dataloader'
 
 gradle.buildFinished { buildResult ->
     println "*******************************"
@@ -131,7 +131,7 @@ publishing {
                 asNode().children().last() + {
                     resolveStrategy = Closure.DELEGATE_FIRST
                     name 'java-dataloader'
-                    description 'A pure Java 11 port of Facebook Dataloader'
+                    description 'A pure Java 17 port of Facebook Dataloader'
                     url 'https://github.com/graphql-java/java-dataloader'
                     inceptionYear '2017'
 
