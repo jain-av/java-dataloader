@@ -225,8 +225,7 @@ public class DataLoaderStatsTest {
             incrementLoadCountStatisticsContexts.add(context);
             return 0;
         }
-
-        @Deprecated
+@Deprecated
         @Override
         public long incrementLoadCount() {
             return 0;
