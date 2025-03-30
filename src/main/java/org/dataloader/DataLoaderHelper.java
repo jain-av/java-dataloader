@@ -223,8 +223,7 @@ class DataLoaderHelper<K, V> {
         instrCtx.onDispatched();
         return endDispatchCtx(instrCtx, new DispatchResult<>(futureList, totalEntriesHandled));
     }
-
-    private DispatchResult<V> endDispatchCtx(DataLoaderInstrumentationContext<DispatchResult<?>> instrCtx, DispatchResult<V> dispatchResult) {
+private DispatchResult<V> endDispatchCtx(DataLoaderInstrumentationContext<DispatchResult<?>> instrCtx, DispatchResult<V> dispatchResult) {
         // once the CF completes, we can tell the instrumentation
         dispatchResult.getPromisedResults()
                 .whenComplete((result, throwable) -> instrCtx.onCompleted(dispatchResult, throwable));
@@ -445,10 +444,9 @@ class DataLoaderHelper<K, V> {
         Object context = loaderOptions.getBatchLoaderContextProvider().getContext();
         BatchLoaderEnvironment environment = BatchLoaderEnvironment.newBatchLoaderEnvironment()
                 .context(context).keyContexts(keys, keyContexts).build();
+DataLoaderInstrumentationContext<List<?>> instrCtx = ctxOrNoopCtx(instrumentation().beginBatchLoader(dataLoader, keys, environment));
 
-        DataLoaderInstrumentationContext<List<?>> instrCtx = ctxOrNoopCtx(instrumentation().beginBatchLoader(dataLoader, keys, environment));
-
-        CompletableFuture<List<V>> batchLoad;
+CompletableFuture<List<V>> batchLoad;
         try {
             if (isMapLoader()) {
                 batchLoad = invokeMapBatchLoader(keys, environment);
