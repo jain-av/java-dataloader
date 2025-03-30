@@ -225,8 +225,7 @@ public class DataLoaderTest {
         assertThat(future2.get(), equalTo(2));
         assertThat(loadCalls, equalTo(singletonList(asList(1, 2))));
     }
-
-    @ParameterizedTest
+@ParameterizedTest
     @MethodSource("org.dataloader.fixtures.parameterized.TestDataLoaderFactories#get")
     public void should_Return_number_of_batched_entries(TestDataLoaderFactory factory) {
         List<Collection<Integer>> loadCalls = new ArrayList<>();
@@ -457,8 +456,7 @@ public class DataLoaderTest {
         await().until(composite::isDone);
         assertThat(future1.get(), equalTo("X"));
         assertThat(future2.get(), equalTo("B"));
-
-        identityLoader.clear("A").prime("A", "Y");
+identityLoader.clear("A").prime("A", "Y");
         identityLoader.clear("B").prime("B", "Y");
 
         CompletableFuture<String> future1a = identityLoader.load("A");
@@ -688,8 +686,7 @@ public class DataLoaderTest {
         assertThat(cause.getMessage(), equalTo(cause.getMessage()));
         assertThat(loadCalls, equalTo(singletonList(asList(1, 2))));
     }
-
-    @ParameterizedTest
+@ParameterizedTest
     @MethodSource("org.dataloader.fixtures.parameterized.TestDataLoaderFactories#get")
     public void should_Accept_objects_as_keys(TestDataLoaderFactory factory) {
         List<Collection<Object>> loadCalls = new ArrayList<>();
@@ -918,8 +915,7 @@ public class DataLoaderTest {
         CompletableFuture<String> future1 = identityLoader.load("a");
         CompletableFuture<String> future2 = identityLoader.load("b");
         CompletableFuture<List<String>> composite = identityLoader.dispatch();
-
-        await().until(composite::isDone);
+await().until(composite::isDone);
         assertThat(future1.get(), equalTo("a"));
         assertThat(future2.get(), equalTo("b"));
 
@@ -1151,8 +1147,7 @@ public class DataLoaderTest {
         identityLoader.dispatch();
 
         await().atMost(Duration.FIVE_SECONDS).until(() -> areAllDone(cf1, cf2, cf3, cf4));
-
-        if (factory instanceof ListDataLoaderFactory) {
+if (factory instanceof ListDataLoaderFactory) {
             assertThat(cause(cf1), instanceOf(DataLoaderAssertionException.class));
             assertThat(cause(cf2), instanceOf(DataLoaderAssertionException.class));
             assertThat(cause(cf3), instanceOf(DataLoaderAssertionException.class));

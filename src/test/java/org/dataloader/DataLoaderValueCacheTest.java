@@ -217,8 +217,7 @@ public class DataLoaderValueCacheTest {
     @MethodSource("org.dataloader.fixtures.parameterized.TestDataLoaderFactories#get")
     public void caching_can_take_some_time_complete(TestDataLoaderFactory factory) {
         CustomValueCache customValueCache = new CustomValueCache() {
-
-            @Override
+@Override
             public CompletableFuture<Object> get(String key) {
                 if (key.startsWith("miss")) {
                     return CompletableFuture.supplyAsync(() -> {
@@ -450,8 +449,7 @@ public class DataLoaderValueCacheTest {
         CompletableFuture<String> fA = identityLoader.load("a");
         CompletableFuture<String> fB = identityLoader.load("b");
         CompletableFuture<String> fC = identityLoader.load("c");
-
-        assertTrue(fA.isDone()); // with batching off they are dispatched immediately
+assertTrue(fA.isDone()); // with batching off they are dispatched immediately
         assertTrue(fB.isDone());
         assertTrue(fC.isDone());
 
