@@ -225,6 +225,12 @@ class DataLoaderHelper<K, V> {
     }
 
     private DispatchResult<V> endDispatchCtx(DataLoaderInstrumentationContext<DispatchResult<?>> instrCtx, DispatchResult<V> dispatchResult) {
+        dispatchResult.whenComplete((result, throwable) -> instrCtx.onCompleted(dispatchResult, throwable));
+        return dispatchResult;
+    }
+
+    private CompletableFuture<List<V>> sliceIntoBatchesOfBatches(List<K> keys, List<CompletableFuture<V>> queuedFutures, List<Object> callContexts, int maxBatchSize) {
+private DispatchResult<V> endDispatchCtx(DataLoaderInstrumentationContext<DispatchResult<?>> instrCtx, DispatchResult<V> dispatchResult) {
         // once the CF completes, we can tell the instrumentation
         dispatchResult.getPromisedResults()
                 .whenComplete((result, throwable) -> instrCtx.onCompleted(dispatchResult, throwable));
@@ -449,6 +455,9 @@ class DataLoaderHelper<K, V> {
         DataLoaderInstrumentationContext<List<?>> instrCtx = ctxOrNoopCtx(instrumentation().beginBatchLoader(dataLoader, keys, environment));
 
         CompletableFuture<List<V>> batchLoad;
+DataLoaderInstrumentationContext<List<?>> instrCtx = ctxOrNoopCtx(instrumentation().beginBatchLoader(dataLoader, keys, environment));
+
+CompletableFuture<List<V>> batchLoad;
         try {
             if (isMapLoader()) {
                 batchLoad = invokeMapBatchLoader(keys, environment);
