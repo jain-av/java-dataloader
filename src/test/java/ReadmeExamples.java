@@ -221,8 +221,7 @@ public class ReadmeExamples {
     DataLoader<String, User> userDataLoader;
 
     private void clearCacheOnError() {
-
-        userDataLoader.load("r2d2").whenComplete((user, throwable) -> {
+userDataLoader.load("r2d2").whenComplete((user, throwable) -> {
             if (throwable != null) {
                 userDataLoader.clear("r2dr");
                 throwable.printStackTrace();
